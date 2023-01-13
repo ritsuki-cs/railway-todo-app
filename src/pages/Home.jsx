@@ -126,7 +126,7 @@ export function Home() {
 function Tasks(props) {
   const { tasks, selectListId, isDoneDisplay } = props
   if (tasks === null) return <></>
-
+  
   if (isDoneDisplay == 'done') {
     return (
       <ul>
@@ -137,7 +137,7 @@ function Tasks(props) {
               <Link
                 to={`/lists/${selectListId}/tasks/${task.id}`}
                 className="task-item-link"
-              >
+                >
                 {task.title}
                 <br />
                 {task.done ? '完了' : '未完了'}
@@ -158,12 +158,47 @@ function Tasks(props) {
               to={`/lists/${selectListId}/tasks/${task.id}`}
               className="task-item-link"
             >
-              {task.title}
-              <br />
-              {task.done ? '完了' : '未完了'}
+              <div>
+                {task.title}
+                <br />
+                {task.done ? '完了' : '未完了'}
+              </div>
+              <div className='task-item-link-time'>
+                {OutputLocalTime(task.limit)}
+                <br />
+                {CalcRemainTime(task.limit)}
+              </div>
             </Link>
           </li>
         ))}
     </ul>
   )
+}
+
+function OutputLocalTime(utc) {
+  const local = new Date(utc)
+  const year = local.getFullYear()
+  const month = local.getMonth() + 1
+  const day = local.getDate()
+  const hours = (local.getHours() != 0 ? local.getHours() : "00")
+  const minutes = (local.getMinutes() != 0 ? local.getMinutes() : "00")
+  console.log("local: ", local)
+  return `期限：　${year}年${month}月${day}日${hours}時${minutes}分`
+}
+
+function CalcRemainTime(limit) {
+  const limit_date = new Date(limit)
+  const now = new Date()
+  const diff = limit_date - now
+  const diff_d = parseInt(diff / 1000 / 60 / 60 / 24)
+  const diff_h = parseInt(diff / 1000 / 60 / 60) % 24
+  const diff_m = parseInt(diff / 1000 / 60) % 60
+  const diff_s = parseInt(diff / 1000) % 60
+
+  const d = (diff_d != 0 ? `${diff_d}日`: "")
+  const h = (diff_h != 0 ? `${diff_h}時間`: "")
+  const m = (diff_m != 0 ? `${diff_m}分`: "")
+  const s = (diff_s != 0 ? `${diff_s}秒`: "")
+
+  return "残り：　" + d + h + m + s
 }

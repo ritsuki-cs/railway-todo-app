@@ -17,11 +17,12 @@ export function NewTask() {
   const navigate = useNavigate()
   const handleTitleChange = e => setTitle(e.target.value)
   const handleDetailChange = e => setDetail(e.target.value)
-  const handleLimitChange = e => setLimit(e.target.value + ":00Z")
   const handleSelectList = id => setSelectListId(id)
+  const handleLimitChange = e => {
+    const limit_utc = new Date(e.target.value).toISOString()
+    setLimit(limit_utc.slice(0, -5) + "Z")
+  }
   const now = new Date()
-  now.setMinutes(now.getMinutes() - now.getTimezoneOffset())
-  // console.log(now.toISOString().slice(0, -8))
   const onCreateTask = () => {
     const data = {
       title,

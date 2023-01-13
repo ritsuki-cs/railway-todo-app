@@ -50,11 +50,15 @@
       font-size: large;
       border: solid 1px #ffffff;
       .task-item-link {
-        display: block;
+        display: flex;
+        justify-content: space-between;
         width: 100%;
         height: 100%;
         text-decoration: none;
         color: #000000;
+        .task-item-link-time {
+          padding-right: 20px;
+        }
       }
     }
   }
