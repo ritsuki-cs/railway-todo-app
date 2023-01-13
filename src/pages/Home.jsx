@@ -198,7 +198,7 @@ function CalcRemainTime(limit) {
   const d = (diff_d != 0 ? `${diff_d}日`: "")
   const h = (diff_h != 0 ? `${diff_h}時間`: "")
   const m = (diff_m != 0 ? `${diff_m}分`: "")
-  const s = (diff_s != 0 ? `${diff_s}秒`: "")
+  // const s = (diff_s != 0 ? `${diff_s}秒`: "")
 
-  return "残り：　" + d + h + m + s
+  return "残り：　" + d + h + m
 }
