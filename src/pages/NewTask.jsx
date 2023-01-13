@@ -19,10 +19,11 @@ export function NewTask() {
   const handleDetailChange = e => setDetail(e.target.value)
   const handleSelectList = id => setSelectListId(id)
   const handleLimitChange = e => {
-    const limit_utc = new Date(e.target.value).toISOString()
-    setLimit(limit_utc.slice(0, -5) + "Z")
+    const limitUtc = new Date(e.target.value).toISOString()
+    setLimit(limitUtc.slice(0, -5) + 'Z')
   }
   const now = new Date()
+  const dateMinBoarder = new Date(now + now.getTimezoneOffset())
   const onCreateTask = () => {
     const data = {
       title,
@@ -95,7 +96,7 @@ export function NewTask() {
             type="datetime-local"
             onChange={handleLimitChange}
             className="new-task-limit"
-            min={now.toISOString().slice(0, -8)}
+            min={dateMinBoarder.toISOString().slice(0, -8)}
           />
           <br />
           <label>詳細</label>
