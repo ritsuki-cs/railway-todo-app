@@ -14,6 +14,30 @@ export function Home() {
   const [errorMessage, setErrorMessage] = useState('')
   const [cookies] = useCookies()
   const handleIsDoneDisplayChange = e => setIsDoneDisplay(e.target.value)
+
+  // リストのキーボード操作
+  const tabs = document.querySelectorAll('[role="tab"]')
+  const TabSelect = e => {
+    // console.log('e: ', e)
+    // console.log('lists: ', lists)
+    const activeIndex = lists.findIndex((list) => {
+      return list.id === selectListId
+    })
+    if (e.code == "ArrowRight" || e.code == "ArrowDown") {
+      if(activeIndex < lists.length-1) {
+        setSelectListId(lists[activeIndex+1].id)
+        handleSelectList(lists[activeIndex+1].id)
+        tabs[activeIndex+1].focus()
+      }
+    } else if (e.code == "ArrowLeft" || e.code == "ArrowUp") {
+      if(activeIndex > 0) {
+        setSelectListId(lists[activeIndex-1].id)
+        handleSelectList(lists[activeIndex-1].id)
+        tabs[activeIndex-1].focus()
+      }
+    }
+  }
+
   useEffect(() => {
     axios
       .get(`${url}/lists`, {
@@ -82,14 +106,17 @@ export function Home() {
               </p>
             </div>
           </div>
-          <ul className="list-tab">
+          <ul className="list-tab" onKeyDown={TabSelect}>
             {lists.map((list, key) => {
               const isActive = list.id === selectListId
               return (
                 <li
+                  role={"tab"}
                   key={key}
                   className={`list-tab-item ${isActive ? 'active' : ''}`}
                   onClick={() => handleSelectList(list.id)}
+                  tabIndex={isActive ? 0 : -1}
+                  aria-selected={isActive ? "true" : "false"}
                 >
                   {list.title}
                 </li>
@@ -164,7 +191,7 @@ function Tasks(props) {
                 {task.done ? '完了' : '未完了'}
               </div>
               <div className='task-item-link-time'>
-                {OutputLocalTime(task.limit)}
+                {OutputLimitTime(task.limit)}
                 <br />
                 {CalcRemainTime(task.limit)}
               </div>
@@ -175,7 +202,8 @@ function Tasks(props) {
   )
 }
 
-function OutputLocalTime(utc) {
+// 期限の出力
+function OutputLimitTime(utc) {
   const local = new Date(utc)
   const year = local.getFullYear()
   const month = local.getMonth() + 1
@@ -186,6 +214,7 @@ function OutputLocalTime(utc) {
   return `期限：　${year}年${month}月${day}日${hours}時${minutes}分`
 }
 
+// 残り時間の出力
 function CalcRemainTime(limit) {
   const limit_date = new Date(limit)
   const now = new Date()
