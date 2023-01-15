@@ -19,12 +19,14 @@ export function EditTask() {
   const handleDetailChange = e => setDetail(e.target.value)
   const handleIsDoneChange = e => setIsDone(e.target.value === 'done')
   const handleLimitChange = e => {
-    const limitUtc = new Date(e.target.value).toISOString()
-    setLimit(limitUtc.slice(0, -5) + 'Z')
+    // console.log('e.target.value: ',e.target.value)
+    const limitUtc = ChangeToUtcFormat(new Date(e.target.value))
+    // console.log('limitUtc: ', limitUtc)
+    setLimit(limitUtc)
   }
   // 期限のminに入れる値
   const now = new Date()
-  const dateMinBoarder = new Date(now + now.getTimezoneOffset())
+  const dateMinBoarder = ChangeToUtcFormat(now)
 
   const onUpdateTask = () => {
     console.log(isDone)
@@ -32,7 +34,7 @@ export function EditTask() {
       title,
       detail,
       done: isDone,
-      limit,
+      limit: ChangeToLocalFormat(new Date(limit)).slice(0, -5) + 'Z',
     }
 
     axios
@@ -77,7 +79,9 @@ export function EditTask() {
         setTitle(task.title)
         setDetail(task.detail)
         setIsDone(task.done)
-        setLimit(task.limit)
+        const nowLimit = ChangeToUtcFormat(new Date(task.limit))
+        // console.log('nowlimit: ', nowLimit)
+        setLimit(nowLimit)
       })
       .catch(err => {
         setErrorMessage(`タスク情報の取得に失敗しました。${err}`)
@@ -103,12 +107,12 @@ export function EditTask() {
           <label>期限</label>
           <br />
           <input
-            id='edit-task-limit'
+            id="edit-task-limit"
             type="datetime-local"
             onChange={handleLimitChange}
             className="edit-task-limit"
-            min={dateMinBoarder.toISOString().slice(0, -8)}
-            // value={limitLocal.toISOString().slice(0, -1)}
+            min={dateMinBoarder.slice(0, -8)}
+            value={limit.slice(0, -8)}
           />
           <br />
           <label>詳細</label>
@@ -158,4 +162,18 @@ export function EditTask() {
       </main>
     </div>
   )
+}
+
+function ChangeToUtcFormat(time) {
+  // console.log('inputTime: ', time)
+  return new Date(
+    time.getTime() - time.getTimezoneOffset() * 60 * 1000,
+  ).toISOString()
+}
+
+function ChangeToLocalFormat(time) {
+  // console.log('inputTime: ', time)
+  return new Date(
+    time.getTime() + time.getTimezoneOffset() * 60 * 1000,
+  ).toISOString()
 }

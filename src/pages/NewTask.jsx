@@ -22,6 +22,7 @@ export function NewTask() {
     const limitUtc = new Date(e.target.value).toISOString()
     setLimit(limitUtc.slice(0, -5) + 'Z')
   }
+  // 期限のminに入れる値
   const now = new Date()
   const dateMinBoarder = new Date(now + now.getTimezoneOffset())
   const onCreateTask = () => {

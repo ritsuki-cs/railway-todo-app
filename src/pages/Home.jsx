@@ -126,7 +126,7 @@ export function Home() {
 function Tasks(props) {
   const { tasks, selectListId, isDoneDisplay } = props
   if (tasks === null) return <></>
-  
+
   if (isDoneDisplay == 'done') {
     return (
       <ul>
@@ -182,7 +182,7 @@ function OutputLocalTime(utc) {
   const day = local.getDate()
   const hours = (local.getHours() != 0 ? local.getHours() : "00")
   const minutes = (local.getMinutes() != 0 ? local.getMinutes() : "00")
-  console.log("local: ", local)
+  // console.log("local: ", local)
   return `期限：　${year}年${month}月${day}日${hours}時${minutes}分`
 }
 
