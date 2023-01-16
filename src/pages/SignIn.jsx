@@ -60,7 +60,9 @@ export function SignIn() {
             サインイン
           </button>
         </form>
-        <Link to="/signup">新規作成</Link>
+        <div className='to-signup'>
+          <Link to="/signup">新規作成</Link>
+        </div>
       </main>
     </div>
   )

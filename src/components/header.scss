@@ -11,5 +11,28 @@
     color: #ffffff;
     margin: auto 25px auto auto;
   }
-}
 
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+    .sign-out-button {
+      position: absolute;
+      right: 0;
+      top: 20px;
+      background-image: url("../logout.svg");
+      background-repeat: no-repeat;
+      width: 30px;
+      height: 30px;
+      // 文字を見えなくする
+      text-indent: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    @media screen and (max-width: 320px) {
+      font-size:small;
+      .sign-out-button {
+        margin-right: 10px;
+      }
+    }
+  }
+}
