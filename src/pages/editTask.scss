@@ -1,12 +1,13 @@
 @charset "utf-8";
 
 .edit-task {
-  width: 1000px;
+  width: 500px;
   margin: 0 auto;
   .edit-task-form {
     color: #555555;
     .edit-task-title,
-    .edit-task-detail {
+    .edit-task-detail,
+    .edit-task-limit {
       width: 300px;
       margin-bottom: 25px;
     }
@@ -30,6 +31,35 @@
   }
   .error-message {
     color: #ff3333;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 50%;
+    h2 {
+      text-align: center;
+    }
+    .edit-task-form {
+      .edit-task-title,
+      .edit-task-limit,
+      .edit-task-detail {
+        width: 100%;
+      }
+      .task-buttons {
+        width: 100%;
+        margin: 25px 0;
+        .delete-task-button,
+        .edit-task-button {
+          width: 40%;
+          margin: 0 5%;
+        }
+      }
+    }
+
+    @media screen and (max-width: 320px) {
+      h2 {
+        font-size: large;
+      }
+    }
   }
 }
 

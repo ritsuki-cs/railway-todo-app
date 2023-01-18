@@ -1,13 +1,14 @@
 @charset "utf-8";
 
 .new-task {
-  width: 1000px;
+  width: 500px;
   margin: 0 auto;
   .new-task-form {
     color: #555555;
     .new-task-select-list,
     .new-task-title,
-    .new-task-detail {
+    .new-task-detail,
+    .new-task-limit {
       width: 300px;
       margin-bottom: 25px;
     }
@@ -24,6 +25,28 @@
   }
   .error-message {
     color: #ff3333;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 50%;
+    h2 {
+      text-align: center;
+    }
+    .new-task-form {
+      .new-task-select-list,
+      .new-task-title,
+      .new-task-limit,
+      .new-task-button,
+      .new-task-detail {
+        width: 100%;
+      }
+    }
+
+    @media screen and (max-width: 320px) {
+      h2 {
+        font-size: large;
+      }
+    }
   }
 }
 

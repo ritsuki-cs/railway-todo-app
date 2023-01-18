@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .edit-list {
-  width: 1000px;
+  width: 500px;
   margin: 0 auto;
   .edit-list-form {
     color: #555555;
@@ -27,6 +27,32 @@
   }
   .error-message {
     color: #ff3333;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 50%;
+
+    h2 {
+      text-align: center;
+    }
+    .edit-list-form {
+      .edit-list-title {
+        width: 100%;
+      }
+      .list-buttons {
+        width: 100%;
+        .edit-list-button, .delete-list-button {
+          margin: 0 5%;
+          width: 40%;
+        }
+      }
+    }
+
+    @media screen and (max-width: 320px) {
+      h2 {
+        font-size: large;
+      }
+    }
   }
 }
 

@@ -79,20 +79,22 @@ export function EditList() {
             onChange={handleTitleChange}
           />
           <br />
-          <button
-            type="button"
-            className="delete-list-button"
-            onClick={onDeleteList}
-          >
-            削除
-          </button>
-          <button
-            type="button"
-            className="edit-list-button"
-            onClick={onUpdateList}
-          >
-            更新
-          </button>
+          <div className='list-buttons'>
+            <button
+              type="button"
+              className="delete-list-button"
+              onClick={onDeleteList}
+            >
+              削除
+            </button>
+            <button
+              type="button"
+              className="edit-list-button"
+              onClick={onUpdateList}
+            >
+              更新
+            </button>
+          </div>
         </form>
       </main>
     </div>

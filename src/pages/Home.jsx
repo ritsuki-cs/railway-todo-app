@@ -165,9 +165,10 @@ function Tasks(props) {
                 to={`/lists/${selectListId}/tasks/${task.id}`}
                 className="task-item-link"
                 >
-                {task.title}
-                <br />
-                {task.done ? '完了' : '未完了'}
+                <div className='title-done done'>
+                  <h3>{task.title}</h3>
+                  <p>{task.done ? '完了' : '未完了'}</p>
+                </div>
               </Link>
             </li>
           ))}
@@ -185,15 +186,19 @@ function Tasks(props) {
               to={`/lists/${selectListId}/tasks/${task.id}`}
               className="task-item-link"
             >
-              <div>
-                {task.title}
-                <br />
-                {task.done ? '完了' : '未完了'}
+              <div className='title-done'>
+                <h3>{task.title}</h3>
+                <p>{task.done ? '完了' : '未完了'}</p>
               </div>
-              <div className='task-item-link-time'>
-                {OutputLimitTime(task.limit)}
-                <br />
-                {CalcRemainTime(task.limit)}
+              <div className='limit-time'>
+                <div>
+                  <p>期限：</p>
+                  <p>{OutputLimitTime(task.limit)}</p>
+                </div>
+                <div className='task-item-link-time'>
+                  <p>残り：</p>
+                  <p>{CalcRemainTime(task.limit)}</p>
+                </div>
               </div>
             </Link>
           </li>
@@ -211,7 +216,12 @@ function OutputLimitTime(utc) {
   const hours = (local.getHours() != 0 ? local.getHours() : "00")
   const minutes = (local.getMinutes() != 0 ? local.getMinutes() : "00")
   // console.log("local: ", local)
-  return `期限：　${year}年${month}月${day}日${hours}時${minutes}分`
+  const now = new Date()
+  if(now.getFullYear() === year) {
+    return `${month}月${day}日${hours}時${minutes}分`
+  } else {
+    return `${year}年${month}月${day}日${hours}時${minutes}分`
+  }
 }
 
 // 残り時間の出力
@@ -229,5 +239,5 @@ function CalcRemainTime(limit) {
   const m = (diff_m != 0 ? `${diff_m}分`: "")
   // const s = (diff_s != 0 ? `${diff_s}秒`: "")
 
-  return "残り：　" + d + h + m
+  return d + h + m
 }

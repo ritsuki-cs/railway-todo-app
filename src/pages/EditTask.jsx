@@ -144,20 +144,22 @@ export function EditTask() {
             />
             完了
           </div>
-          <button
-            type="button"
-            className="delete-task-button"
-            onClick={onDeleteTask}
-          >
-            削除
-          </button>
-          <button
-            type="button"
-            className="edit-task-button"
-            onClick={onUpdateTask}
-          >
-            更新
-          </button>
+          <div className='task-buttons'>
+            <button
+              type="button"
+              className="delete-task-button"
+              onClick={onDeleteTask}
+            >
+              削除
+            </button>
+            <button
+              type="button"
+              className="edit-task-button"
+              onClick={onUpdateTask}
+            >
+              更新
+            </button>
+          </div>
         </form>
       </main>
     </div>
